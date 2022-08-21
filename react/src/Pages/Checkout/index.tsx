@@ -7,7 +7,7 @@ import { ILocalState, initialLocalState } from "./types";
 import { PageProps } from "../../globalTypes";
 
 export const Checkout: React.FC<PageProps> = ({ state, dispatch}): JSX.Element => {
-  const { totalAmount } = state
+  const { totalAmount, user } = state
   const navigate: NavigateFunction = useNavigate()
   const [localState, setLocalState] = useState<ILocalState>(initialLocalState)
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -52,7 +52,6 @@ export const Checkout: React.FC<PageProps> = ({ state, dispatch}): JSX.Element =
 
   return(
     <Fragment>
-
       <section className="Checkout">
         <form className="Checkout__form">
           <CheckoutInput
@@ -60,12 +59,14 @@ export const Checkout: React.FC<PageProps> = ({ state, dispatch}): JSX.Element =
             id="fullName"
             type="text"
             placeholder="John Doe"
+            value={user.fullname}
             onchange={handleChange}
           />
           <CheckoutInput
             name="Email"
             id="email"
             type="email"
+            value={user.email}
             placeholder="john@doe.com"
             onchange={handleChange}
           />
@@ -73,12 +74,14 @@ export const Checkout: React.FC<PageProps> = ({ state, dispatch}): JSX.Element =
             name="Country"
             id="country"
             type="select"
+            value={'mx'}
             onchange={handleChange}
           />
           <CheckoutInput
             name="Address"
             id="address"
             type="text"
+            value=''
             placeholder="Street address"
             onchange={handleChange}
           />
@@ -86,6 +89,7 @@ export const Checkout: React.FC<PageProps> = ({ state, dispatch}): JSX.Element =
             name="Card Number"
             id="cardNumber"
             type="number"
+            value=''
             placeholder="1234 1234 1234 1234"
             onchange={handleChange}
           />
@@ -93,6 +97,7 @@ export const Checkout: React.FC<PageProps> = ({ state, dispatch}): JSX.Element =
             name="Expiration Date"
             id="expirationDate"
             type="number"
+            value=''
             placeholder="MM / YY"
             onchange={handleChange}
           />
@@ -101,6 +106,7 @@ export const Checkout: React.FC<PageProps> = ({ state, dispatch}): JSX.Element =
             id="zipCode"
             type="number"
             placeholder="11655"
+            value=''
             onchange={handleChange}
           />
           <span className="Checkout__error" ref={errorRef}>

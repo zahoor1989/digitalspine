@@ -12,7 +12,7 @@ import { Ctx } from "./Context";
 import * as stock from './Assets/products/products.json';
 
 // utils
-import { initialState, reducer } from "./globalState";
+import { getStateFromLocalStorage, reducer } from "./globalState";
 
 // css
 import './App.scss';
@@ -20,7 +20,16 @@ import { StateInterface } from './globalTypes';
 
 
 function App(): JSX.Element {
-  const [state, dispatch] = useReducer(reducer, initialState())
+  const [state, dispatch] = useReducer(reducer, getStateFromLocalStorage())
+
+  React.useEffect(() => {
+    try{
+      const { products } = stock;
+      dispatch({ type: "ADD_INITIAL_ITEMS", payload: JSON.parse(JSON.stringify(products))})
+    }catch(err){
+      dispatch({ type: "ERROR" })
+    }
+  }, [])
 
   React.useEffect(() => {
     try{

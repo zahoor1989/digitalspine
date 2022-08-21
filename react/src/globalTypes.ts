@@ -1,9 +1,10 @@
 import React from "react";
 
 export interface UserInterface{
-  id: String;
-  username: String;
-  email:String;
+  id: string;
+  username: string;
+  fullname:string;
+  email:string;
 }
 
 export interface TokenInterface{

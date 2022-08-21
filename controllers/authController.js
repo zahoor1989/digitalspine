@@ -1,6 +1,4 @@
 const User = require('./../models/userModel');
-const Product = require('./../models/productModel');
-const Order = require('./../models/OrderModel');
 const AppError = require('./../utils/AppError');
 const catchAsync = require('./../utils/catchAsync');
 const jwt = require('jsonwebtoken');

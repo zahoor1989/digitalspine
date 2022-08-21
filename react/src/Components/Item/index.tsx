@@ -8,6 +8,7 @@ export const Item: React.FC<ItemProps> = ({
   name,
   category,
   price,
+  currency,
   rate,
   display_image,
   dispatch,
@@ -33,7 +34,7 @@ export const Item: React.FC<ItemProps> = ({
 
       <div className="Item__body">
         <h2 onClick={handleNavigate}>{name}</h2>
-        <span>${price}</span>
+        <span>{currency} {price}</span>
         <span className="Item__category">{category}</span>
       </div>
 

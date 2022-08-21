@@ -4,6 +4,7 @@ export const initialState = (): StateInterface => {
   return {
     user : { 
       id: '', 
+      fullname:'',
       username: '', 
       email:''
     },
@@ -23,6 +24,24 @@ export const initialState = (): StateInterface => {
   }
 }
 
+//saving state in local storage
+function syncStateWithLocalStorage(state:any) {
+  localStorage.setItem("Context", JSON.stringify(state));
+
+}
+
+//saving state in local storage
+export const getStateFromLocalStorage = ():StateInterface => {
+  const state = localStorage.getItem("Context");
+  if(state){
+    return JSON.parse(state);
+  }else {
+    return initialState();
+  }
+
+
+}
+
 export function reducer(state: StateInterface, action: ActionType): StateInterface{
   const { type, payload } = action
   let index: number | undefined;
@@ -35,21 +54,41 @@ export function reducer(state: StateInterface, action: ActionType): StateInterfa
 
   switch(type){
     case "SETUSER":
+      //saving updated state
+      syncStateWithLocalStorage({
+        ...state,
+        user: payload as UserInterface
+      }) 
       return {
         ...state,
         user: payload as UserInterface
       }
     case "SETTOKEN":
+       //saving updated state
+       syncStateWithLocalStorage({
+        ...state,
+        token: payload as String
+      }) 
       return {
         ...state,
         token: payload as String
       }
     case "RESET":
+       //saving updated state
+       syncStateWithLocalStorage({
+        ...state,
+        shoppingCart: []
+      }) 
       return {
         ...state,
         shoppingCart: []
       }
     case "AMOUNT":
+       //saving updated state
+       syncStateWithLocalStorage({
+        ...state,
+        totalAmount: payload as number
+      }) 
       return{
         ...state,
         totalAmount: payload as number
@@ -61,13 +100,22 @@ export function reducer(state: StateInterface, action: ActionType): StateInterfa
       )
       newShoppingCart = [...state.shoppingCart]
       newShoppingCart[index].quantity = (payload as ChangeQuantityInterface).quantity
-
+       //saving updated state
+       syncStateWithLocalStorage({
+        ...state,
+        shoppingCart: newShoppingCart
+      })  
       return {
         ...state,
         shoppingCart: newShoppingCart
       }
 
     case "SEARCH":
+      //saving updated state
+      syncStateWithLocalStorage({
+        ...state,
+        isSearching: !state.isSearching
+      })
       return{
         ...state,
         isSearching: !state.isSearching
@@ -75,12 +123,19 @@ export function reducer(state: StateInterface, action: ActionType): StateInterfa
     case "MOVING":
       state.current = (payload as RoutesInterface).current;
       state.history = (payload as RoutesInterface).history
+        //saving updated state
+        syncStateWithLocalStorage({ ...state })
       return{ ...state }
 
     case "REMOVE":
       index = getIndex()
       newShoppingCart = state.shoppingCart.filter(product => product.id !== payload)
       state.items[index].added = false;
+       //saving updated state
+       syncStateWithLocalStorage({ 
+        ...state,
+        shoppingCart: newShoppingCart
+      })
       return{ 
         ...state,
         shoppingCart: newShoppingCart
@@ -99,6 +154,11 @@ export function reducer(state: StateInterface, action: ActionType): StateInterfa
         newShoppingCart = state.shoppingCart
       }
       state.items[index].added = true;
+       //saving updated state
+       syncStateWithLocalStorage({
+        ...state,
+        shoppingCart: newShoppingCart
+      })
       return{
         ...state,
         shoppingCart: newShoppingCart
@@ -108,6 +168,11 @@ export function reducer(state: StateInterface, action: ActionType): StateInterfa
       state.filteredItems = state.items.filter(item => {
         let searching: string = payload as string
         return item.title.toLowerCase().includes(searching.toLowerCase())
+      })
+       //saving updated state
+       syncStateWithLocalStorage({
+        ...state,
+        searching: payload as string
       })
       return{
         ...state,
@@ -126,12 +191,23 @@ export function reducer(state: StateInterface, action: ActionType): StateInterfa
       })
       state.items = payload as ItemInterface[];
       state.filteredItems = state.items;
+       //saving updated state
+       syncStateWithLocalStorage({
+        ...state,
+        loading: false
+      })
       return {
         ...state,
         loading: false
       }
 
     case "ERROR":
+        //saving updated state
+        syncStateWithLocalStorage({
+          ...state,
+          error: true,
+          loading: false
+        })
       return {
         ...state,
         error: true,
@@ -139,6 +215,8 @@ export function reducer(state: StateInterface, action: ActionType): StateInterfa
       }
 
     default:
+       //saving updated state
+       syncStateWithLocalStorage({ ...state })
       return { ...state }
   }
 }

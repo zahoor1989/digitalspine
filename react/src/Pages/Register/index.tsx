@@ -65,6 +65,7 @@ export const Register: React.FC<PageProps> = ({ state, dispatch}): JSX.Element =
             name="Full Name"
             id="fullname"
             type="text"
+            value=""
             placeholder="John Doe"
             onchange={handleChange}
           />
@@ -72,6 +73,7 @@ export const Register: React.FC<PageProps> = ({ state, dispatch}): JSX.Element =
             name="User Name"
             id="username"
             type="text"
+            value=""
             placeholder="jhondoe"
             onchange={handleChange}
           />
@@ -79,6 +81,7 @@ export const Register: React.FC<PageProps> = ({ state, dispatch}): JSX.Element =
             name="Email"
             id="email"
             type="email"
+            value=""
             placeholder="john@doe.com"
             onchange={handleChange}
           />
@@ -86,6 +89,7 @@ export const Register: React.FC<PageProps> = ({ state, dispatch}): JSX.Element =
             name="Password"
             id="password"
             type="password"
+            value=""
             placeholder="john@doe.com"
             onchange={handleChange}
           />
@@ -93,6 +97,7 @@ export const Register: React.FC<PageProps> = ({ state, dispatch}): JSX.Element =
             name="Confirm Password"
             id="passwordConfirm"
             type="password"
+            value=""
             placeholder="john@doe.com"
             onchange={handleChange}
           />

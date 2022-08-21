@@ -5,7 +5,8 @@ export const CheckoutInput: React.FC<CheckoutInputProps> = ({
   id,
   type,
   placeholder,
-  onchange
+  onchange,
+  value
 }): JSX.Element => {
   const handleChange = (evt: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     onchange(evt)
@@ -28,6 +29,7 @@ export const CheckoutInput: React.FC<CheckoutInputProps> = ({
           id={id}
           type={type}
           placeholder={placeholder}
+          value={value}
           onChange={handleChange}
         />
       )}

@@ -5,6 +5,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const authRouter = require('./routers/authRouter');
 const productRouter = require('./routers/productRouter');
+const orderRouter = require('./routers/orderRouter');
 const viewRouter = require('./routers/viewRouter');
 const errorController = require('./controllers/errorController');
 const jwtSecret = process.env.JWT_SECRET;
@@ -23,6 +24,7 @@ app.use(cookieParser(jwtSecret));
 app.use('/', viewRouter);
 app.use('/auth/', authRouter);
 app.use('/product/', productRouter);
+app.use('/order/', orderRouter);
 
 app.get('*', (req, res) =>{
 	res.sendFile(path.join(__dirname+'/react/build/index.html'));

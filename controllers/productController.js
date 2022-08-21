@@ -6,15 +6,16 @@ const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 
 
-exports.addProduct = (product) => {
-    console.log(product,"<<<<<<<")
+exports.addProduct = (req, res, next) => {
+    console.log(req.body,"<<<<<<<addProduct")
 }
 
-exports.getProduct = (productId) => {
-    console.log(productId,"<<<<<<<")
+exports.getProduct = (req, res, next) => {
+    console.log(req.body,"<<<<<<<")
 }
 
-exports.getAllProducts = () => {
+exports.getAllProducts = (req, res, next) => {
+    
     res.status(code).json({
         status: 'success',
         token,

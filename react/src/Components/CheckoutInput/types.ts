@@ -3,5 +3,6 @@ export interface CheckoutInputProps{
   type: string;
   id: string;
   onchange: Function;
+  value: string;
   placeholder?: string;
 }
