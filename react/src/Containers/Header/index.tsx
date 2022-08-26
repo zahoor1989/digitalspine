@@ -37,7 +37,9 @@ export const Header: React.FC<HeaderProps> = ({ dispatch }): JSX.Element => {
   }
   const userLogout = async () => {
     await UserService.logoutUser().then((resp) => {
-      console.log(resp,"<<<<<<<resp")
+      dispatch({type: 'RESETUSER'})
+      dispatch({type: 'RESETTOKEN'})
+     
     })
 
   }

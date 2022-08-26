@@ -20,11 +20,26 @@ const loginUser = async (data:any) => {
 const logoutUser = async() => {
     return await axios.get('auth/logout');
     }
+// creating order
+const createOrder  =async (order:any)  => {
+        return await axios.post('order/addOrder', order);
+    }
+// getting order by id
+const getOrder  =async (orderInfo:any)  => {
+    return await axios.get('order/getOrder', orderInfo);
+}
 
-    const UserService = {
+const getOrdersByUsersId = async(userInfo:any)=> {
+    return await axios.get('order/getOrderByUserId', userInfo);
+}
+
+const UserService = {
         getUser,
         registerUser,
         loginUser,
-        logoutUser
+        logoutUser,
+        createOrder,
+        getOrdersByUsersId,
+        getOrder
       };
 export default UserService;

@@ -1,6 +1,6 @@
 export interface ILocalState{
   username: string;
-  password:String;
+  password:string;
 }
 
 export const initialLocalState: ILocalState = {

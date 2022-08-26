@@ -7,7 +7,7 @@ export const Product: React.FC<PageProps> = ({ state, dispatch }): JSX.Element =
   const { title } = useParams()
   const { items } = state
   const item: ItemInterface = items.find(index => index.title.trim() === title?.trim()) as ItemInterface
-
+debugger
   // useEffect(() => {
   //   window.scrollTo(0, 0)
   // }, [searching])
@@ -29,7 +29,7 @@ export const Product: React.FC<PageProps> = ({ state, dispatch }): JSX.Element =
         </div>
 
         <div className="Detail__info--meta">
-          <span className="Detail__price">${item.price}</span>
+          <span className="Detail__price">{item.price.currency}{item.price.value}</span>
           <Rating content={item.rating.rate} />
         </div>
 

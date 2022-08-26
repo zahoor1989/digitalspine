@@ -7,6 +7,7 @@ import { ActionType, PageProps } from "../../globalTypes";
 export const Home: React.FC<PageProps> = ({ state, dispatch, ctx }): JSX.Element => {
   const renderContent = (): JSX.Element => {
     if(state.filteredItems.length){
+      debugger
       return(
         <React.Fragment>
           <Filter

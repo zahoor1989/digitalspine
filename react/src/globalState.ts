@@ -3,7 +3,7 @@ import { StateInterface, ActionType, ItemInterface, ChangeQuantityInterface, Rou
 export const initialState = (): StateInterface => {
   return {
     user : { 
-      id: '', 
+      _id: '', 
       fullname:'',
       username: '', 
       email:''
@@ -71,7 +71,32 @@ export function reducer(state: StateInterface, action: ActionType): StateInterfa
       }) 
       return {
         ...state,
-        token: payload as String
+        token: payload as string
+      }
+      case "RESETTOKEN":
+        //saving updated state
+        syncStateWithLocalStorage({
+         ...state,
+         token: null
+       }) 
+       return {
+         ...state,
+         token: payload as string
+       }
+      case "RESETUSER":
+        //saving updated state
+        syncStateWithLocalStorage({
+         ...state,
+         user: null
+       }) 
+       return {
+        ...state,
+        user: { 
+          _id: '', 
+          fullname:'',
+          username: '', 
+          email:''
+        }
       }
     case "RESET":
        //saving updated state

@@ -3,11 +3,12 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 import { ButtonCTA } from "../../Components/ButtonCTA";
 import { Product } from "../../Components/Product";
 import { PageProps, ActionType } from "../../globalTypes";
+import UserService from "../../Services/UserService";
 import { ITotalAmount, totalAmountInitial } from "./types";
 
 export const Cart: React.FC<PageProps> = ({ state, dispatch }): JSX.Element => {
   const navigate: NavigateFunction = useNavigate()
-  const { shoppingCart } = state
+  const { shoppingCart, user, token,  } = state
   const [totalAmount, setTotalAmount] = React.useState<ITotalAmount>(totalAmountInitial)
 
   React.useEffect(() => {
@@ -30,6 +31,35 @@ export const Cart: React.FC<PageProps> = ({ state, dispatch }): JSX.Element => {
       })
     }
   }, [shoppingCart])
+  
+  // creating order 
+  const createOrder = async() => {
+    if(dispatch){
+      dispatch({ type: "SETUSER", payload: user })
+      dispatch({ type: "SETTOKEN", payload: token })
+      dispatch && dispatch({
+        type: "AMOUNT",
+        payload: totalAmount.total 
+      })
+    }
+    // get car information ctx
+    const userInfo = {
+      user_id: user._id,
+      products: shoppingCart,
+      status: false
+    }
+     // calling back end api to register the user
+    await UserService.createOrder(userInfo).then(res => {
+     debugger
+     console.log(res,"<<<<<<<res")
+
+     dispatch && dispatch({
+      type: "RESET"
+    })
+     navigate('/home')
+     
+    })
+}
 
   return(
     <section className="Cart">
@@ -69,22 +99,8 @@ export const Cart: React.FC<PageProps> = ({ state, dispatch }): JSX.Element => {
             </div>
 
             <ButtonCTA 
-              content="Proceed to Checkout"
-              onclick={() => {
-                dispatch && dispatch({
-                  type: "MOVING",
-                  payload: {
-                    current: "/shopping-cart",
-                    history: "/checkout"
-                  }
-                })
-
-                dispatch && dispatch({
-                  type: "AMOUNT",
-                  payload: totalAmount.total 
-                })
-                navigate("/checkout")
-              }}
+              content="Proceed to order"
+              onclick={() => createOrder()}
             />
           </article>
         </section>

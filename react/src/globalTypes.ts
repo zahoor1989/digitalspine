@@ -1,7 +1,7 @@
 import React from "react";
 
 export interface UserInterface{
-  id: string;
+  _id: string;
   username: string;
   fullname:string;
   email:string;
@@ -45,7 +45,7 @@ type tokenType = TokenInterface;
 
 export interface StateInterface{
   user: UserInterface,
-  token: String,
+  token: string,
   items: Array<ItemInterface>,
   filteredItems: Array<ItemInterface>,
   shoppingCart: Array<ItemInterface>,

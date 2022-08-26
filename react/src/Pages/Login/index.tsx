@@ -49,7 +49,6 @@ export const Login: React.FC<PageProps> = ({ state, dispatch}): JSX.Element => {
       })
       setIsModalOpen(true)
     }else{
-      debugger
       errorRef.current?.classList.add("error")
       window.scroll({
         top: 10000,
@@ -66,7 +65,7 @@ export const Login: React.FC<PageProps> = ({ state, dispatch}): JSX.Element => {
             name="User Name"
             id="username"
             type="text"
-            value=''
+            value={localState.username}
             placeholder="username / email"
             onchange={handleChange}
           />
@@ -74,7 +73,7 @@ export const Login: React.FC<PageProps> = ({ state, dispatch}): JSX.Element => {
             name="Password"
             id="password"
             type="password"
-            value=''
+            value={localState.password}
             placeholder="john@doe.com"
             onchange={handleChange}
           />
