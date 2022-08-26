@@ -6,20 +6,45 @@ const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 
 
-exports.addProduct = (req, res, next) => {
-    console.log(req.body,"<<<<<<<addProduct")
+exports.addProduct = async(req, res, next) => {
+    try {
+        // getting values form request body
+        const {products} = req.body;
+        if(products){
+            await Product.insertMany(products).then(result => {
+                res.status(200).json({
+                    status: 'success',
+                    message :'Products created successfully',
+                    result
+                });
+            })
+        }else{
+            res.status(400).json({
+                status: 'error',
+                message :'Mandatory feild are missing',
+                title:'Missing Fields'
+            });
+        }
+    } catch(err) {
+        next(err);
+    }
 }
 
-exports.getProduct = (req, res, next) => {
+exports.getProductById = (req, res, next) => {
     console.log(req.body,"<<<<<<<")
 }
 
-exports.getAllProducts = (req, res, next) => {
-    
-    res.status(code).json({
-        status: 'success',
-        token,
-        user
-    });
-
+exports.getAllProducts = async(req, res, next) => {
+    try {
+        // fetching products
+        await Product.find().then(result => {
+            res.status(200).json({
+                status: 'success',
+                message :'Products fetched successfully',
+                result
+            });
+        })
+    } catch(err) {
+        next(err);
+    }
 };

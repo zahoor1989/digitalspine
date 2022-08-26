@@ -7,17 +7,16 @@ const productSchema = new Schema({
     title: {
         type: String,
         required: [true, 'Enter a title.'],
-        validate: [validator.isAlphanumeric, 'Usernames may only have letters and numbers.']
     },
     display_image: {
         type: String,
         require: [true, 'Image url is required.'],
-        validate: [validator.isDataURI, 'Enter valid image url.']
+        validate: [validator.isURL, 'Enter valid image url.']
     },
     description: {
         type: String,
         required: [true, 'Enter product discription.'],
-        minLength: [50, 'Discription. should be at least 50 characters']
+        minLength: [20, 'Discription. should be at least 50 characters']
     }, 
     brand: {
         type: String,
@@ -43,7 +42,7 @@ const productSchema = new Schema({
         type:Boolean,
         default:false
     },
-    price:{
+    price: {
         currency: {
             type: String
         },

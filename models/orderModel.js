@@ -1,27 +1,27 @@
+const { ObjectId } = require('mongoose');
 const mongoose = require('mongoose');
 const { array } = require('mongoose/lib/utils');
 const validator = require('validator');
+const User = require('./userModel');
 const Schema = mongoose.Schema;
 
 
 const orderSchema = new Schema({
     user_id: {
-        type: Number,
-        required: [true, 'User id is required']
+        type: mongoose.Types.ObjectId,
+        ref: User,
+        required: [true, 'User Id is required']    
     },
-    products:{
-        type: Array,
-        items:[
-            {
+    products:[
+        {
             title: {
                 type: String,
-                required: [true, 'Enter a title.'],
-                validate: [validator.isAlphanumeric, 'Usernames may only have letters and numbers.']
+                required: [true, 'Enter a title.']                
             },
             display_image: {
                 type: String,
                 require: [true, 'Image url is required.'],
-                validate: [validator.isDataURI, 'Enter valid image url.']
+                validate: [validator.isURL, 'Enter valid image url.']
             },
             description: {
                 type: String,
@@ -61,8 +61,7 @@ const orderSchema = new Schema({
                     required: true
                 }
             }
-        }]
-    },
+        }],
     status: {
      type: Boolean,
      default:false
